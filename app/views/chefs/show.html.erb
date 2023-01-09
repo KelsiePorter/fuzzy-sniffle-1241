@@ -1,0 +1,14 @@
+<h1><%= @chef.name %>'s Show Page</h1>
+
+<p><strong>Chef's Dishes: </strong></p>
+<% @chef.dishes.each do |dish| %>
+  <p><strong>Name: </strong><%= dish.name %></p>
+  <p><strong>Description: </strong><%= dish.description %></p>
+<% end %>
+
+<p><strong>Assign a dish to this chef using the dish ID: </strong></p>
+<%= form_with url: "/chefs/#{@chef.id}", method: :patch, local: true do |f| %>
+  <%= f.label :dish_id %>
+  <%= f.text_field :dish_id %><br>
+  <%= f.submit "Add Dish" %>
+<% end %>

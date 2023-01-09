@@ -3,4 +3,8 @@ Rails.application.routes.draw do
 
   #dishes
   get '/dishes/:id', to: 'dishes#show'
+
+  #chefs
+  get '/chefs/:id', to: 'chefs#show'
+  patch 'chefs/:id', to: 'chefs#update'
 end
