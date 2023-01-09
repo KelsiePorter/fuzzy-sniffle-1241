@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'the chefs show page' do
+RSpec.describe 'the chefs ingredients show page' do
   before :each do 
     @chef_1 = Chef.create!(name: "Gordon Ramsey")
     @chef_2 = Chef.create!(name: "Guy Fieri")
@@ -32,35 +32,19 @@ RSpec.describe 'the chefs show page' do
     @dish_3.ingredients << @ingredient_7
     @dish_3.ingredients << @ingredient_8
   end
-
-  describe 'user story 2' do 
-    it 'displays the chefs name and all dishes belonging to chef' do 
+  describe 'user story 3 part 2' do 
+    it 'clicking the link directs to a chefs ingredients index page where I see a unique list of ingredient names' do 
       visit "/chefs/#{@chef_1.id}"
 
-      expect(page).to have_content(@chef_1.name)
-      expect(page).to have_content(@dish_1.name)
-      expect(page).to have_content(@dish_2.name)
-      expect(page).to_not have_content(@dish_3.name)
-    end
-    it 'displays a form to add an existing dish to the chef and that dish is not displayed on the show page' do 
-      visit "/chefs/#{@chef_1.id}"
+      click_link "View All Ingredients"
 
-      expect(page).to_not have_content(@dish_3.name)
-      expect(page).to_not have_content(@dish_3.description)
-
-      fill_in "Dish", with: @dish_3.id
-      click_on "Add Dish"
-
-      expect(current_path).to eq("/chefs/#{@chef_1.id}")
-      expect(page).to have_content(@dish_3.name)
-    end
-  end
-
-  describe 'user story 3' do 
-    it 'displays a link to view a list of all ingredients the chef uses' do 
-      visit "/chefs/#{@chef_1.id}"
-
-      expect(page).to have_link("View All Ingredients")
+      expect(current_path).to eq("/chefs/#{@chef_1.id}/ingredients")
+      expect(page).to have_content(@ingredient_1.name)
+      expect(page).to have_content(@ingredient_2.name)
+      expect(page).to have_content(@ingredient_3.name)
+      expect(page).to have_content(@ingredient_4.name)
+      expect(page).to have_content(@ingredient_5.name)
+      expect(page).to have_content(@ingredient_6.name)
     end
   end
 end
