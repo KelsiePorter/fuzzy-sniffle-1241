@@ -24,6 +24,7 @@ RSpec.describe 'the chefs show page' do
     @dish_2.ingredients << @ingredient_4
     @dish_2.ingredients << @ingredient_5
     @dish_2.ingredients << @ingredient_6
+    @dish_2.ingredients << @ingredient_3
 
     @ingredient_7 = Ingredient.create!(name: "Tortilla", calories: 230)
     @ingredient_8 = Ingredient.create!(name: "Queso", calories: 160)
@@ -52,7 +53,27 @@ RSpec.describe 'the chefs show page' do
 
       expect(current_path).to eq("/chefs/#{@chef_1.id}")
       expect(page).to have_content(@dish_3.name)
-      # expect(page).to have_content(@dish_3.description)
+    end
+  end
+
+  describe 'user story 3' do 
+    it 'displays a link to view a list of all ingredients the chef uses' do 
+      visit "/chefs/#{@chef_1.id}"
+
+      expect(page).to have_link("View All Ingredients")
+    end
+    it 'clicking the link directs to a chefs ingredients index page where I see a unique list of ingredient names' do 
+      visit "/chefs/#{@chef_1.id}"
+
+      click_link "View All Ingredients"
+
+      expect(current_path).to eq("/chefs/#{@chef_1.id}/ingredients")
+      expect(page).to have_content(@ingredient_1.name)
+      expect(page).to have_content(@ingredient_2.name)
+      expect(page).to have_content(@ingredient_3.name)
+      expect(page).to have_content(@ingredient_4.name)
+      expect(page).to have_content(@ingredient_5.name)
+      expect(page).to have_content(@ingredient_6.name)
     end
   end
 end
