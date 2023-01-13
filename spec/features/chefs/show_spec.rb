@@ -33,7 +33,7 @@ RSpec.describe 'the chefs show page' do
     @dish_3.ingredients << @ingredient_8
   end
 
-  describe 'user story 2' do 
+  describe 'user story 2 (old version)' do 
     it 'displays the chefs name and all dishes belonging to chef' do 
       visit "/chefs/#{@chef_1.id}"
 

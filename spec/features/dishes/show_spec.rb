@@ -42,4 +42,18 @@ RSpec.describe 'the dishes show page' do
       expect(page).to_not have_content("Chef: #{@chef_2.name}")
     end
   end
+
+  describe 'user story 2 (updated version)' do 
+    it 'displays a form to add an existing ingredient to that dish and redirects back to the show page' do
+      visit "/dishes/#{@dish_1.id}"
+
+      expect(page).to_not have_content(@ingredient_4.name)
+  
+      fill_in "Ingredient", with: @ingredient_4.id
+      click_button "Submit"
+
+      expect(current_path).to eq("/dishes/#{@dish_1.id}")
+      expect(page).to have_content(@ingredient_4.name)
+    end
+  end
 end
